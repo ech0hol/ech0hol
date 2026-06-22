@@ -44,4 +44,9 @@ LLM Security · Middleware Architecture · Open Source
 ## 📝 Recent Activity
 
 <!--START_SECTION:activity-->
+1. ℹ️ Labeled issue [#3694](https://github.com/bytedance/deer-flow/issues/3694) in [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
+2. 🎉 Merged PR [#3641](https://github.com/bytedance/deer-flow/pull/3641) in [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
+3. ❌ Closed PR [#38968](https://github.com/NousResearch/hermes-agent/pull/38968) in [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+4. ❌ Closed PR [#41384](https://github.com/NousResearch/hermes-agent/pull/41384) in [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent)
+5. 💪 Opened PR [#3641](https://github.com/bytedance/deer-flow/pull/3641) in [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 <!--END_SECTION:activity-->
