@@ -2,9 +2,7 @@
 
 # ech0hol
 
-**Agent Infrastructure Engineer**
-
-LLM Security · Middleware Architecture · Open Source
+**Agent Engineer · AI Full-Stack Engineer**
 
 </div>
 
@@ -36,3 +34,10 @@ LLM Security · Middleware Architecture · Open Source
 | [#3694](https://github.com/bytedance/deer-flow/issues/3694) | [bug] Journal captures `hide_from_ui` HumanMessage as `first_human_message` | 🔍 Open |
 | [#3695](https://github.com/bytedance/deer-flow/issues/3695) | [bug]  `hide_from_ui` HumanMessage leaks into memory builder, polluting long-term memory | 🔍 Open |
 <!--END_SECTION:contributions-->
+
+
+---
+
+## 📫 Reach Me
+
+[![Email](https://img.shields.io/badge/2791184972@qq.com-EA4335?style=flat-square&logo=gmail&logoColor=white)](mailto:2791184972@qq.com)
