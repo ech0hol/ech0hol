@@ -1,16 +1,16 @@
-## Hi there 👋
+## 📊 GitHub Stats
 
-<!--
-**ech0hol/ech0hol** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+![Stats](https://github-readme-stats.vercel.app/api?username=ech0hol&show_icons=true&count_private=true)
 
-Here are some ideas to get you started:
+## 🔥 Streak
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+[![Streak](https://streak-stats.demolab.com/?user=ech0hol)](https://git.io/streak-stats)
+
+## 🐍 Contribution Graph
+
+![Snake animation](https://raw.githubusercontent.com/ech0hol/ech0hol/output/github-snake.svg)
+
+## 📝 Recent Activity
+
+<!--START_SECTION:activity-->
+<!--END_SECTION:activity-->
