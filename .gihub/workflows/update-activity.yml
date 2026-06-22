@@ -1,0 +1,25 @@
+name: Update Recent Activity
+
+on:
+  schedule:
+    # 每6小时运行一次（UTC时间 0,6,12,18点）
+    - cron: '0 */6 * * *'
+  # 允许手动触发（在 Actions 页面点 Run workflow）
+  workflow_dispatch:
+
+jobs:
+  update-activity:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write    # 需要写权限来修改 README
+
+    steps:
+      # 1. 检出仓库代码
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. 用 github-activity-readme action 更新 README
+      - name: Update Activity
+        uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
