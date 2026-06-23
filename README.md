@@ -25,8 +25,8 @@
 
 | Issue | Description | Status |
 |-------|-------------|--------|
-| [#3484](https://github.com/bytedance/deer-flow/issues/3484) | [bug] 聊天消息内容过长会导致横向溢出，未正确约束在消息容器内 | ✅ Closed |
-| [#3630](https://github.com/bytedance/deer-flow/issues/3630) | [bug] Unprocessed user input leads to multiple prompt injection vectors 用户输入未经处理导致多种提示词注入 | ✅ Closed |
+| [#3484](https://github.com/bytedance/deer-flow/issues/3484) | [bug] Horizontal overflow from long chat messages not constrained in container. | ✅ Closed |
+| [#3630](https://github.com/bytedance/deer-flow/issues/3630) | [bug] Unprocessed user input leads to multiple prompt injection vectors | ✅ Closed |
 | [#3694](https://github.com/bytedance/deer-flow/issues/3694) | [bug] Journal captures `hide_from_ui` HumanMessage as `first_human_message` | ✅ Closed |
 | [#3695](https://github.com/bytedance/deer-flow/issues/3695) | [bug]  `hide_from_ui` HumanMessage leaks into memory builder, polluting long-term memory | ✅ Closed |
 
