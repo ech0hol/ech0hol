@@ -35,7 +35,6 @@
 | [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 | [#3697](https://github.com/bytedance/deer-flow/pull/3697) | fix(memory): filter hide_from_ui HumanMessages from memory builder | ✅ Merged |
 
-
 <!--END_SECTION:contributions-->
 
 
