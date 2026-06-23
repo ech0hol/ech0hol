@@ -35,14 +35,6 @@
 | [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 | [#3697](https://github.com/bytedance/deer-flow/pull/3697) | fix(memory): filter hide_from_ui HumanMessages from memory builder | ✅ Merged |
 
-### Closed Issues
-
-| Issue | Description | Status |
-|-------|-------------|--------|
-| [#3484](https://github.com/bytedance/deer-flow/issues/3484) | [bug] Horizontal overflow from long chat messages not constrained in container. | ✅ Closed |
-| [#3630](https://github.com/bytedance/deer-flow/issues/3630) | [bug] Unprocessed user input leads to multiple prompt injection vectors | ✅ Closed |
-| [#3694](https://github.com/bytedance/deer-flow/issues/3694) | [bug] Journal captures `hide_from_ui` HumanMessage as `first_human_message` | ✅ Closed |
-| [#3695](https://github.com/bytedance/deer-flow/issues/3695) | [bug]  `hide_from_ui` HumanMessage leaks into memory builder, polluting long-term memory | ✅ Closed |
 
 <!--END_SECTION:contributions-->
 
