@@ -29,11 +29,6 @@ jobs:
             "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:issue+is:closed&per_page=30" \
             | jq -r '.items | sort_by(.number) | .[] | "| [#\(.number)](\(.html_url)) | \(.title) | ✅ Closed |"')
 
-          # 获取 ech0hol 在 bytedance/deer-flow 的开放 Issue
-          OPEN_ISSUES=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:issue+is:open&per_page=30" \
-            | jq -r '.items | sort_by(.number) | .[] | "| [#\(.number)](\(.html_url)) | \(.title) | 🔍 Open |"')
-
           # 构建 Markdown 表格
           {
             echo "### Merged Pull Requests"
