@@ -25,7 +25,7 @@
 | Issue | Description | Status |
 |-------|-------------|--------|
 | [#3484](https://github.com/bytedance/deer-flow/issues/3484) | [bug] 聊天消息内容过长会导致横向溢出，未正确约束在消息容器内 | ✅ Closed |
-| [#3630](https://github.com/bytedance/deer-flow/issues/3630) | [bug] Unprocessed user input leads to multiple prompt injection vectors 用户输入未经处理导致多种提示词注入 | ✅ Closed |
+| [#3630](https://github.com/bytedance/deer-flow/issues/3630) | [bug] 用户输入未经处理导致多种提示词注入 | ✅ Closed |
 
 ### Open Issues
 
