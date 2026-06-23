@@ -43,11 +43,6 @@ jobs:
             echo "|-------|-------------|--------|"
             if [ -n "$CLOSED_ISSUES" ]; then echo "$CLOSED_ISSUES"; else echo "| - | No closed issues yet | - |"; fi
             echo ""
-            echo "### Open Issues"
-            echo ""
-            echo "| Issue | Description | Status |"
-            echo "|-------|-------------|--------|"
-            if [ -n "$OPEN_ISSUES" ]; then echo "$OPEN_ISSUES"; else echo "| - | No open issues | - |"; fi
           } > /tmp/contributions.txt
 
           # 用 sed 替换 README.md 中占位符之间的内容
