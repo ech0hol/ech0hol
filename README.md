@@ -30,11 +30,6 @@
 | [#3694](https://github.com/bytedance/deer-flow/issues/3694) | [bug] Journal captures `hide_from_ui` HumanMessage as `first_human_message` | ✅ Closed |
 | [#3695](https://github.com/bytedance/deer-flow/issues/3695) | [bug]  `hide_from_ui` HumanMessage leaks into memory builder, polluting long-term memory | ✅ Closed |
 
-### Open Issues
-
-| Issue | Description | Status |
-|-------|-------------|--------|
-| - | No open issues | - |
 <!--END_SECTION:contributions-->
 
 
