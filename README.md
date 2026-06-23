@@ -14,11 +14,11 @@
 
 | PR | Description | Status |
 |----|-------------|--------|
+| [#3661](https://github.com/bytedance/deer-flow/pull/3661) | fix(security): inject system context as SystemMessage for role isolation (#3630) | ✅ Merged |
+| [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 | [#3488](https://github.com/bytedance/deer-flow/pull/3488) | fix(frontend): prevent user message bubble overflow with long unbreakable strings | ✅ Merged |
 | [#3605](https://github.com/bytedance/deer-flow/pull/3605) | fix(runtime): propagate interrupt through SSE values events for LangGraph SDK | ✅ Merged |
 | [#3641](https://github.com/bytedance/deer-flow/pull/3641) | fix(smoke-test): add auth-aware frontend checks with login support | ✅ Merged |
-| [#3661](https://github.com/bytedance/deer-flow/pull/3661) | fix(security): inject system context as SystemMessage for role isolation (#3630) | ✅ Merged |
-| [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 
 ### Closed Issues
 
