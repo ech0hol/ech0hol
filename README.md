@@ -34,6 +34,7 @@
 | [#3661](https://github.com/bytedance/deer-flow/pull/3661) | fix(security): inject system context as SystemMessage for role isolation (#3630) | ✅ Merged |
 | [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 | [#3697](https://github.com/bytedance/deer-flow/pull/3697) | fix(memory): filter hide_from_ui HumanMessages from memory builder | ✅ Merged |
+| [#3711](https://github.com/bytedance/deer-flow/pull/3711) | fix(agents): coalesce SystemMessages before LLM request | ✅ Merged |
 
 <!--END_SECTION:contributions-->
 
