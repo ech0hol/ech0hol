@@ -35,6 +35,7 @@
 | [#3662](https://github.com/bytedance/deer-flow/pull/3662) | fix(security): add input sanitization middleware for prompt-injection defense (#3630) | ✅ Merged |
 | [#3697](https://github.com/bytedance/deer-flow/pull/3697) | fix(memory): filter hide_from_ui HumanMessages from memory builder | ✅ Merged |
 | [#3711](https://github.com/bytedance/deer-flow/pull/3711) | fix(agents): coalesce SystemMessages before LLM request | ✅ Merged |
+| [#3746](https://github.com/bytedance/deer-flow/pull/3746) | fix(middleware): prevent ID-swap recursive injection and orphan peer compression | ✅ Merged |
 
 <!--END_SECTION:contributions-->
 
