@@ -10,8 +10,7 @@
 <div align="center">
 
 ![Profile Details](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=ech0hol&theme=default)
-![Stats](https://github-profile-summary-cards.vercel.app/api/cards/stats?username=ech0hol&theme=default)
-![Productive Time](https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=ech0hol&theme=default&utcOffset=8)
+
 
 </div>
 
