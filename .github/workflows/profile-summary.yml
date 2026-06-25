@@ -1,0 +1,16 @@
+name: GitHub Profile Summary Cards
+on:
+  schedule: # UTC 时间每天凌晨4点跑一次（北京时间中午12点）
+    - cron: '0 4 * * *'
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: vn7n24fzkq/github-profile-summary-cards@release
+        env:
+          TOKEN: *** secrets.TOKEN }}
