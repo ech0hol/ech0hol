@@ -9,9 +9,8 @@
 
 <div align="center">
 
-<!-- Side-by-side stats cards -->
-<img src="https://github-readme-stats.vercel.app/api?username=ech0hol&show_icons=true&theme=tokyonight&count_private=true&hide_border=true&bg_color=0D1117" height="165" alt="GitHub Stats" />
-<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=ech0hol&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117" height="165" alt="Top Languages" />
+![Profile Summary](https://github.com/ech0hol/ech0hol/blob/main/profile-summary-cards-output/0.png)
+
 
 </div>
 
