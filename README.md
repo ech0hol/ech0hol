@@ -9,7 +9,7 @@
 
 <div align="center">
 
-![Profile Summary](https://github.com/ech0hol/ech0hol/blob/main/profile-summary-cards-output/0.png)
+![Profile Details](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=ech0hol&theme=default)
 
 
 </div>
