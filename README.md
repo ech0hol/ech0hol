@@ -1,7 +1,7 @@
 
 <div align="center">
 
-# Zhipeng Zheng/ech0hol
+# Zhipeng Zheng
 
 **Agent Engineer · AI Full-Stack Engineer**
 
