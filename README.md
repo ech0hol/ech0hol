@@ -33,6 +33,7 @@
 | [#3697](https://github.com/bytedance/deer-flow/pull/3697) | fix(memory): filter hide_from_ui HumanMessages from memory builder | ✅ Merged |
 | [#3711](https://github.com/bytedance/deer-flow/pull/3711) | fix(agents): coalesce SystemMessages before LLM request | ✅ Merged |
 | [#3746](https://github.com/bytedance/deer-flow/pull/3746) | fix(middleware): prevent ID-swap recursive injection and orphan peer compression | ✅ Merged |
+| [#3889](https://github.com/bytedance/deer-flow/pull/3889) | feat(skills): per-user custom skill isolation with sandbox mounting | ✅ Merged |
 
 <!--END_SECTION:contributions-->
 
