@@ -17,14 +17,14 @@ jobs:
 
       - name: Fetch & Update README
         env:
-          GITHUB_TOKEN: *** secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # 获取 ech0hol 在 bytedance/deer-flow 的已合并 PR
+          # Fetch merged PRs by ech0hol in bytedance/deer-flow
           PRS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:pr+is:merged&per_page=30" \
             | jq -r '.items | sort_by(.number) | .[] | "| [#\(.number)](\(.html_url)) | \(.title) | ✅ Merged |"')
 
-          # 构建英文 Markdown 表格
+          # Build English markdown table
           {
             echo "### Merged Pull Requests"
             echo ""
@@ -34,8 +34,7 @@ jobs:
             echo ""
           } > /tmp/contributions_en.txt
 
-          # 构建中文 Markdown 表格
-          # 翻译映射：英文 title → 中文描述
+          # Translation map: English title -> Chinese description
           translate() {
             local title="$1"
             case "$title" in
@@ -62,11 +61,12 @@ jobs:
             esac
           }
 
-          # 逐行翻译 PR 描述
+          # Fetch PRs again for Chinese table (need title, number, url separately)
           PRS_ZH=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
             "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:pr+is:merged&per_page=30" \
             | jq -r '.items | sort_by(.number) | .[] | "\(.title)\t#\(.number)\t\(.html_url)"')
 
+          # Build Chinese markdown table
           {
             echo "### 已合并的 Pull Request"
             echo ""
@@ -75,7 +75,7 @@ jobs:
             if [ -n "$PRS_ZH" ]; then
               while IFS=$'\t' read -r title number url; do
                 zh_title=$(translate "$title")
-                echo "| [#$number]($url) | $zh_title | ✅ 已合并 |"
+                echo "| [$number]($url) | $zh_title | ✅ 已合并 |"
               done <<< "$PRS_ZH"
             else
               echo "| - | 暂无已合并的 PR | - |"
@@ -83,15 +83,15 @@ jobs:
             echo ""
           } > /tmp/contributions_zh.txt
 
-          # 替换英文段
+          # Replace English section
           sed -i '/<!--START_SECTION:contributions-->/,/<!--END_SECTION:contributions-->/{//!d}' README.md
           sed -i "/<!--START_SECTION:contributions-->/r /tmp/contributions_en.txt" README.md
 
-          # 替换中文段
+          # Replace Chinese section
           sed -i '/<!--START_SECTION:contributions_zh-->/,/<!--END_SECTION:contributions_zh-->/{//!d}' README.md
           sed -i "/<!--START_SECTION:contributions_zh-->/r /tmp/contributions_zh.txt" README.md
 
-          # 提交变更
+          # Commit changes
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git diff --quiet README.md && echo "No changes" || (git add README.md && git commit -m "Update contributions [skip ci]" && git push)
