@@ -5,12 +5,8 @@
 
 **Agent Engineer · AI Full-Stack Engineer**
 
-
-
 <div align="center">
-
-
-
+  <img src="./assets/contribution-graph.svg" alt="ech0hol's Contribution Graph" width="100%" />
 </div>
 
 
