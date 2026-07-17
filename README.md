@@ -5,10 +5,7 @@
 
 **Agent Engineer · AI Full-Stack Engineer**
 
-<div align="center">
-  <img src="./assets/contribution-graph.svg" alt="ech0hol's Contribution Graph" width="100%" />
-</div>
-
+![](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=ech0hol&theme=nord_bright&animation=fade&title_color=000000&bg_color=ffffff)
 
 
 </div>
