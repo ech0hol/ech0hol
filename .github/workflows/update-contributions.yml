@@ -2,11 +2,15 @@ name: Update Contributions
 
 on:
   schedule:
-    - cron: '0 11,23 * * *'
+    - cron: '0 1 * * *'
   workflow_dispatch:
+  push:
+    branches: [main, master]
+    paths:
+      - .github/workflows/contribution-graph.yml
 
 jobs:
-  update:
+  generate:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,83 +19,154 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Fetch & Update README
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate SVG
         run: |
-          # Fetch merged PRs by ech0hol in bytedance/deer-flow
-          PRS=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:pr+is:merged&per_page=30" \
-            | jq -r '.items | sort_by(.number) | .[] | "| [#\(.number)](\(.html_url)) | \(.title) | ✅ Merged |"')
+          pip install httpx
 
-          # Build English markdown table
-          {
-            echo "### Merged Pull Requests"
-            echo ""
-            echo "| PR | Description | Status |"
-            echo "|----|-------------|--------|"
-            if [ -n "$PRS" ]; then echo "$PRS"; else echo "| - | No merged PRs yet | - |"; fi
-            echo ""
-          } > /tmp/contributions_en.txt
+          python3 - <<'PYEOF'
+          import httpx, json
+          from datetime import datetime, timedelta
 
-          # Translation map: English title -> Chinese description
-          translate() {
-            local title="$1"
-            case "$title" in
-              "fix(frontend): prevent user message bubble overflow with long unbreakable strings")
-                echo "fix(前端): 修复长不可断字符串导致用户消息气泡溢出" ;;
-              "fix(runtime): propagate interrupt through SSE values events for LangGraph SDK")
-                echo "fix(运行时): 通过 SSE values 事件传播 interrupt 以支持 LangGraph SDK" ;;
-              "fix(smoke-test): add auth-aware frontend checks with login support")
-                echo "fix(冒烟测试): 添加带登录支持的鉴权感知前端检查" ;;
-              "fix(security): inject system context as SystemMessage for role isolation (#3630)")
-                echo "fix(安全): 将系统上下文注入为 SystemMessage 实现角色隔离 (#3630)" ;;
-              "fix(security): add input sanitization middleware for prompt-injection defense (#3630)")
-                echo "fix(安全): 添加输入净化中间件防御提示词注入 (#3630)" ;;
-              "fix(memory): filter hide_from_ui HumanMessages from memory builder")
-                echo "fix(记忆): 从记忆构建器中过滤 hide_from_ui 的 HumanMessage" ;;
-              "fix(agents): coalesce SystemMessages before LLM request")
-                echo "fix(Agent): LLM 请求前合并重复的 SystemMessage" ;;
-              "fix(middleware): prevent ID-swap recursive injection and orphan peer compression")
-                echo "fix(中间件): 防止 ID-swap 递归注入及孤立 peer 压缩" ;;
-              "feat(skills): per-user custom skill isolation with sandbox mounting")
-                echo "feat(技能): 基于沙箱挂载的用户级自定义技能隔离" ;;
-              *)
-                echo "$title" ;;
-            esac
-          }
+          # Use REST API to get contribution events (no GraphQL needed)
+          today = datetime.utcnow()
+          start = today - timedelta(days=365)
 
-          # Fetch PRs again for Chinese table (need title, number, url separately)
-          PRS_ZH=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/search/issues?q=repo:bytedance/deer-flow+author:ech0hol+type:pr+is:merged&per_page=30" \
-            | jq -r '.items | sort_by(.number) | .[] | "\(.title)\t#\(.number)\t\(.html_url)"')
+          # Scrape the profile page HTML for the contribution calendar
+          resp = httpx.get(
+              "https://github.com/ech0hol",
+              headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36"},
+              follow_redirects=True,
+              timeout=30,
+          )
 
-          # Build Chinese markdown table
-          {
-            echo "### 已合并的 Pull Request"
-            echo ""
-            echo "| PR | 描述 | 状态 |"
-            echo "|----|------|------|"
-            if [ -n "$PRS_ZH" ]; then
-              while IFS=$'\t' read -r title number url; do
-                zh_title=$(translate "$title")
-                echo "| [$number]($url) | $zh_title | ✅ 已合并 |"
-              done <<< "$PRS_ZH"
-            else
-              echo "| - | 暂无已合并的 PR | - |"
-            fi
-            echo ""
-          } > /tmp/contributions_zh.txt
+          import re
+          # Extract the JS data that contains the calendar
+          match = re.search(r'data-target="react-app\.embeddedData" data-props="([^"]+)"', resp.text)
+          if not match:
+              # Fallback: scrape raw HTML rect elements
+              from html.parser import HTMLParser
 
-          # Replace English section
-          sed -i '/<!--START_SECTION:contributions-->/,/<!--END_SECTION:contributions-->/{//!d}' README.md
-          sed -i "/<!--START_SECTION:contributions-->/r /tmp/contributions_en.txt" README.md
+              class CalParser(HTMLParser):
+                  def __init__(self):
+                      super().__init__()
+                      self.cells = []
+                      self.in_rect = False
+                      self.current = {}
 
-          # Replace Chinese section
-          sed -i '/<!--START_SECTION:contributions_zh-->/,/<!--END_SECTION:contributions_zh-->/{//!d}' README.md
-          sed -i "/<!--START_SECTION:contributions_zh-->/r /tmp/contributions_zh.txt" README.md
+                  def handle_starttag(self, tag, attrs):
+                      if tag == "td" and any(a[0] == "class" and "ContributionCalendar-day" in (a[1] or "") for a in attrs):
+                          self.in_rect = True
+                          self.current = {}
+                          for a in attrs:
+                              if a[0] == "data-date": self.current["date"] = a[1]
+                              if a[0] == "data-count": self.current["count"] = int(a[1] or 0)
+                              if a[0] == "data-level": self.current["level"] = int(a[1] or 0)
 
-          # Commit changes
+                  def handle_endtag(self, tag):
+                      if tag == "td" and self.in_rect:
+                          self.in_rect = False
+                          if self.current:
+                              self.cells.append(self.current)
+
+                  def handle_data(self, data):
+                      pass
+
+              parser = CalParser()
+              parser.feed(resp.text)
+              cells = parser.cells
+          else:
+              from html import unescape
+              data = json.loads(unescape(match.group(1)))
+              cal = data.get("payload", {}).get("user", {}).get("contributionsCollection", {}).get("contributionCalendar", {})
+              weeks = cal.get("weeks", [])
+              cells = []
+              for week in weeks:
+                  for day in week.get("contributionDays", []):
+                      cells.append({
+                          "date": day.get("date", ""),
+                          "count": day.get("contributionCount", 0),
+                          "level": min(4, day.get("contributionCount", 0)),
+                      })
+
+          if not cells:
+              print("WARNING: No cells extracted, generating empty graph")
+              cells = [{"date": "", "count": 0, "level": 0}] * 371
+
+          # Build SVG
+          cell_size = 10
+          cell_gap = 3
+          step = cell_size + cell_gap
+          num_weeks = max(53, len(cells) // 7)
+          width = num_weeks * step + 50
+          height = 7 * step + 40
+
+          colors = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
+          month_names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+
+          # Month labels
+          month_svgs = ""
+          last_month = ""
+          for i, cell in enumerate(cells):
+              if i % 7 != 0 or not cell["date"]:
+                  continue
+              try:
+                  dt = datetime.strptime(cell["date"], "%Y-%m-%d")
+                  m = month_names[dt.month - 1]
+                  if m != last_month:
+                      x = (i // 7) * step + 35
+                      month_svgs += f'<text x="{x}" y="18" font-size="10" fill="#8b949e" font-family="monospace">{m}</text>'
+                      last_month = m
+              except:
+                  pass
+
+          # Day labels
+          day_svgs = ""
+          for di, dn in enumerate(["Mon","Wed","Fri"]):
+              y = di * 2 * step + step + 30
+              day_svgs += f'<text x="2" y="{y}" font-size="9" fill="#8b949e" font-family="monospace">{dn}</text>'
+
+          # Cells
+          rect_svgs = ""
+          for i, cell in enumerate(cells):
+              week_idx = i // 7
+              day_idx = i % 7
+              x = week_idx * step + 35
+              y = day_idx * step + 25
+              level = cell.get("level", 0)
+              color = colors[min(level, 4)]
+              count = cell.get("count", 0)
+              date_str = cell.get("date", "")
+              rect_svgs += f'<rect x="{x}" y="{y}" width="{cell_size}" height="{cell_size}" rx="2" ry="2" fill="{color}">'
+              if count > 0:
+                  rect_svgs += f'<title>{count} contributions on {date_str}</title>'
+              rect_svgs += '</rect>'
+
+          total = sum(c.get("count", 0) for c in cells)
+
+          svg = f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">
+          <style>:hover {{ opacity: 0.8; }}</style>
+          <rect width="100%" height="100%" fill="#0d1117" rx="6"/>
+          <text x="10" y="15" font-size="11" fill="#c9d1d9" font-family="monospace">{total} contributions in the last year</text>
+          {month_svgs}
+          {day_svgs}
+          {rect_svgs}
+          </svg>'''
+
+          import os
+          os.makedirs("assets", exist_ok=True)
+          with open("assets/contribution-graph.svg", "w") as f:
+              f.write(svg)
+          print(f"Generated SVG with {len(cells)} cells, {total} total contributions")
+          PYEOF
+
+      - name: Commit
+        run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git diff --quiet README.md && echo "No changes" || (git add README.md && git commit -m "Update contributions [skip ci]" && git push)
+          git add assets/contribution-graph.svg
+          git diff --quiet HEAD -- assets/contribution-graph.svg && echo "No changes" || (git commit -m "Update contribution graph [skip ci]" && git push)
