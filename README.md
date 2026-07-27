@@ -14,7 +14,7 @@
 ## 🔐 Open Source Contributions — [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 <!--START_SECTION:contributions-->
 <!-- Auto-generated on 2026-07-27 by .github/workflows/update-contributions.yml -->
-<!-- Total merged PRs: 9 -->
+<!-- Total merged PRs: 10 -->
 
 ### 已合并的 Pull Requests
 
@@ -29,6 +29,7 @@
 | [#3711](https://github.com/bytedance/deer-flow/pull/3711) | 合并多轮对话累积的 SystemMessage，修复严格后端 400 报错 | ✅ Merged |
 | [#3746](https://github.com/bytedance/deer-flow/pull/3746) | 修复 ID-swap 消息替换的递归注入和摘要误压缩问题，补充 peer rescue 机制 | ✅ Merged |
 | [#3889](https://github.com/bytedance/deer-flow/pull/3889) | 实现用户级自定义 Skill 隔离与沙箱挂载 | ✅ Merged |
+| [#4210](https://github.com/bytedance/deer-flow/pull/4210) | 新增share inbound webhook dedupe across pods via Postgres | ✅ Merged |
 
 ### Merged Pull Requests
 
@@ -43,6 +44,7 @@
 | [#3711](https://github.com/bytedance/deer-flow/pull/3711) | fix(agents): coalesce SystemMessages before LLM request | ✅ Merged |
 | [#3746](https://github.com/bytedance/deer-flow/pull/3746) | fix(middleware): prevent ID-swap recursive injection and orphan peer compression | ✅ Merged |
 | [#3889](https://github.com/bytedance/deer-flow/pull/3889) | feat(skills): per-user custom skill isolation with sandbox mounting | ✅ Merged |
+| [#4210](https://github.com/bytedance/deer-flow/pull/4210) | feat(channels): share inbound webhook dedupe across pods via Postgres | ✅ Merged |
 
 <!--END_SECTION:contributions-->
 
