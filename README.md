@@ -13,7 +13,7 @@
 
 ## 🔐 Open Source Contributions — [bytedance/deer-flow](https://github.com/bytedance/deer-flow)
 <!--START_SECTION:contributions-->
-<!-- Auto-generated on 2026-08-15 by .github/workflows/update-contributions.yml -->
+<!-- Auto-generated on 2026-08-16 by .github/workflows/update-contributions.yml -->
 <!-- Total merged PRs: 10 -->
 
 ### 已合并的 Pull Requests
